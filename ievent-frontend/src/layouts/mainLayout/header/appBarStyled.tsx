@@ -12,7 +12,9 @@ const AppBarStyled = styled(AppBar)(() => {
     height: 60,
     display: 'flex',
     justifyContent: 'center',
+    boxShadow: 'none',
     background: 'transparent',
+    borderBottom: matchDownMd ? 'none' : `2px solid ${theme.palette.divider}`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,

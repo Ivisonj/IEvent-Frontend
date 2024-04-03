@@ -1,4 +1,4 @@
-import { Grid, useMediaQuery, useTheme } from '@mui/material'
+import { Box, useMediaQuery, useTheme } from '@mui/material'
 
 import Header from './header'
 import Drawer from './drawer'
@@ -8,14 +8,17 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme()
   const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'))
   return (
-    <Grid item xs={12} height="100vh">
-      <Drawer />
+    <Box sx={{ display: 'flex', width: '100%' }}>
       <Header />
-      <Grid item xs={12} height={1200}>
+      <Drawer />
+      <Box
+        component="main"
+        sx={{ width: '100%', flexGrow: 1, mt: '60px', p: { xs: 2, sm: 3 } }}
+      >
         {children}
-      </Grid>
+      </Box>
       {matchDownMd && <BottomNavigationComponent />}
-    </Grid>
+    </Box>
   )
 }
 
