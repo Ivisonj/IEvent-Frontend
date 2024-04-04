@@ -1,11 +1,16 @@
 import { Box } from '@mui/material'
 
 import DrawerStyled from './drawerStyled'
+import DrawerHeader from './drawerHeader'
+import DrawerContent from './drawerContent'
 
 const Drawer = () => {
   return (
     <Box component="nav">
-      <DrawerStyled>Drawer</DrawerStyled>
+      <DrawerStyled>
+        <DrawerHeader />
+        <DrawerContent />
+      </DrawerStyled>
     </Box>
   )
 }

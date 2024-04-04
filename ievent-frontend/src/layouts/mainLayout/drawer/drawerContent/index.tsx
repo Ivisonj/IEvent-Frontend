@@ -1,5 +1,7 @@
+import { Box } from '@mui/material'
+
 const DrawerContent = () => {
-  return <h1>Drawer Content</h1>
+  return <Box>content</Box>
 }
 
 export default DrawerContent
