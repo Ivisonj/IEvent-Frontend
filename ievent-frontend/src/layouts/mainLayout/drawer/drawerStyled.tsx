@@ -9,8 +9,9 @@ const DrawerStyled = styled(Box)(() => {
   return {
     display: matchDownMd ? 'none' : 'block',
     width: drawerWidth,
-    height: '100vh',
-    borderRight: `2px solid ${theme.palette.divider}`,
+    height: '100%',
+    background: 'rensparent',
+    color: theme.palette.primary.contrastText,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,

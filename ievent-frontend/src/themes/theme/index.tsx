@@ -1,15 +1,10 @@
 export interface CustomColors {
   primary: {
     lighter: string
-    100: string
-    // 200: string;
     light: string
-    // 400: string;
     main: string
     dark: string
-    700: string
     darker: string
-    900: string
     contrastText: string
   }
   secondary: {
@@ -66,7 +61,7 @@ export interface CustomColors {
 }
 
 const Theme = (colors: any): CustomColors => {
-  const { blue, red, gold, cyan, green, grey } = colors
+  const { cyan, purple, red, gold, green, grey } = colors
   const greyColors = {
     0: grey[0],
     50: grey[1],
@@ -90,16 +85,11 @@ const Theme = (colors: any): CustomColors => {
 
   return {
     primary: {
-      lighter: blue[0],
-      100: blue[1],
-      // 200: blue[2],
-      light: blue[3],
-      // 400: blue[4],
-      main: blue[5],
-      dark: blue[6],
-      700: blue[7],
-      darker: blue[8],
-      900: blue[9],
+      lighter: purple[0],
+      light: purple[2],
+      main: purple[4],
+      dark: purple[7],
+      darker: purple[9],
       contrastText,
     },
     secondary: {

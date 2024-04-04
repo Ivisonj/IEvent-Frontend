@@ -5,7 +5,7 @@ import { presetPalettes } from '@ant-design/colors'
 import ThemeOption, { CustomColors } from './theme'
 
 const Palette = (mode: PaletteMode) => {
-  const colors = presetPalettes;
+  const colors = presetPalettes
 
   const greyPrimary = [
     '#ffffff',
@@ -34,7 +34,7 @@ const Palette = (mode: PaletteMode) => {
         black: '#000',
         white: '#fff',
       },
-      ...paletteColor as CustomColors,
+      ...(paletteColor as CustomColors),
       text: {
         primary: paletteColor.grey[700],
         secondary: paletteColor.grey[500],
