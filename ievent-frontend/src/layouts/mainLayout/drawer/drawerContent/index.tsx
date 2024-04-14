@@ -1,7 +1,7 @@
-import { Box } from '@mui/material'
+import Navigation from './navigation'
 
 const DrawerContent = () => {
-  return <Box>content</Box>
+  return <Navigation />
 }
 
 export default DrawerContent

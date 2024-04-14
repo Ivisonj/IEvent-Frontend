@@ -1,21 +1,21 @@
-import { Stack, Typography, Avatar } from '@mui/material'
-import { deepPurple } from '@mui/material/colors'
+import { Stack, Typography, Avatar, useTheme } from '@mui/material'
 
 const DrawerHeader = () => {
+  const theme = useTheme()
   return (
     <Stack
       sx={{
         width: '100%',
-        height: '30%',
+        height: 175,
         display: 'flex',
         justifyContent: 'center',
       }}
     >
       <Avatar
         sx={{
-          bgcolor: deepPurple[500],
-          width: '50%',
-          height: '50%',
+          bgcolor: theme.palette.primary.main,
+          width: 100,
+          height: 100,
           borderRadius: '30px',
           my: 2,
         }}

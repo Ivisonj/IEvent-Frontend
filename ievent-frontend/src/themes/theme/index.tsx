@@ -87,7 +87,7 @@ const Theme = (colors: any): CustomColors => {
     primary: {
       lighter: purple[0],
       light: purple[2],
-      main: purple[4],
+      main: purple[5],
       dark: purple[7],
       darker: purple[9],
       contrastText,

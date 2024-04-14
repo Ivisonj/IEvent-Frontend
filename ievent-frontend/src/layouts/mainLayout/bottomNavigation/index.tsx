@@ -4,6 +4,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 
 import HomeIcon from '@mui/icons-material/Home'
 import EventNoteIcon from '@mui/icons-material/EventNote'
+import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined'
 import PersonIcon from '@mui/icons-material/Person'
 
 const BottomNavigationComponent = () => {
@@ -31,6 +32,11 @@ const BottomNavigationComponent = () => {
         label="Eventos"
         value="events"
         icon={<EventNoteIcon />}
+      />
+      <BottomNavigationAction
+        label="Criar"
+        value="create"
+        icon={<BorderColorOutlinedIcon />}
       />
       <BottomNavigationAction
         label="Perfil"
