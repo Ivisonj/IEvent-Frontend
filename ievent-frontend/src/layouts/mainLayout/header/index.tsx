@@ -1,8 +1,12 @@
-import { Box } from '@mui/material'
 import AppBarStyled from './appBarStyled'
+import HeaderContent from './headerContent'
 
 const Header = () => {
-  return <AppBarStyled>header</AppBarStyled>
+  return (
+    <AppBarStyled>
+      <HeaderContent />
+    </AppBarStyled>
+  )
 }
 
 export default Header

@@ -21,8 +21,6 @@ const BottomNavigationComponent = () => {
         bottom: 0,
         width: 4 / 4,
         height: 60,
-        borderRadius: 5,
-        backgroundColor: '#1c242c',
       }}
       value={value}
       onChange={handleChange}

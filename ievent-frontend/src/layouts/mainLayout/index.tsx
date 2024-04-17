@@ -40,6 +40,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             width: '100%',
             height: '92%',
             flexGrow: 1,
+            mt: { xs: '60px', lg: 0 },
             p: { xs: 2, sm: 3 },
           }}
         >

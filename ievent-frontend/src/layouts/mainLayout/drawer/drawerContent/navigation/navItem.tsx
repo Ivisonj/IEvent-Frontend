@@ -13,14 +13,13 @@ import Link from 'next/link'
 
 interface NavItemProps {
   item: any
-  level: number
 }
 
-const NavItem = ({ item, level }: NavItemProps) => {
+const NavItem = ({ item }: NavItemProps) => {
   const theme = useTheme()
   const dispatch = useDispatch()
 
-  const { drawerOpen, openItem } = useSelector((state: any) => state.menu)
+  const { openItem } = useSelector((state: any) => state.menu)
 
   let itemTarget = '_self'
   if (item.target) {
@@ -46,18 +45,9 @@ const NavItem = ({ item, level }: NavItemProps) => {
   }
 
   const Icon = item.icon
-  const itemIcon = item.icon ? (
-    <Icon style={{ fontSize: drawerOpen ? '1rem' : '1.25rem' }} />
-  ) : (
-    false
-  )
+  const itemIcon = item.icon ? <Icon style={{ fontSize: '1rem' }} /> : false
 
   const isSelected = openItem.findIndex((id: any) => id === item.id) > -1
-  // useEffect(() => {
-  //   if (pathname.includes(item.url)) {
-  //     dispatch(activeItem({ openItem: [item.id] }))
-  //   }
-  // }, [pathname])
 
   const textColor = 'text.primary'
   const iconSelectedColor = 'primary.main'

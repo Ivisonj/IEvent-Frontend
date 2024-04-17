@@ -8,7 +8,7 @@ const AppBarStyled = styled(AppBar)(() => {
   return {
     position: matchDownMd ? 'fixed' : 'relative',
     width: '100%',
-    height: '8%',
+    height: '60px',
     display: 'flex',
     justifyContent: 'center',
     boxShadow: 'none',
