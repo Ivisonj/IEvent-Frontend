@@ -50,7 +50,7 @@ const NavItem = ({ item }: NavItemProps) => {
   const isSelected = openItem.findIndex((id: any) => id === item.id) > -1
 
   const textColor = 'text.primary'
-  const iconSelectedColor = 'primary.main'
+  const iconSelectedColor = theme.palette.common.white
 
   return (
     <ListItemButton
@@ -60,18 +60,7 @@ const NavItem = ({ item }: NavItemProps) => {
       selected={isSelected}
       sx={{
         zIndex: 1201,
-        '&:hover': {
-          bgcolor: 'primary.lighter',
-        },
-        '&.Mui-selected': {
-          bgcolor: 'primary.lighter',
-          borderRight: `2px solid ${theme.palette.primary.main}`,
-          color: iconSelectedColor,
-          '&:hover': {
-            color: iconSelectedColor,
-            bgcolor: 'primary.lighter',
-          },
-        },
+        px: 0,
       }}
     >
       {itemIcon && (
@@ -84,15 +73,6 @@ const NavItem = ({ item }: NavItemProps) => {
             height: 36,
             alignItems: 'center',
             justifyContent: 'center',
-            '&:hover': {
-              bgcolor: 'secondary.lighter',
-            },
-            ...(isSelected && {
-              bgcolor: 'primary.lighter',
-              '&:hover': {
-                bgcolor: 'primary.lighter',
-              },
-            }),
           }}
         >
           {itemIcon}

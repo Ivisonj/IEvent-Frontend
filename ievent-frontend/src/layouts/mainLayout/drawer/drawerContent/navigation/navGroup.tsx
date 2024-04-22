@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux'
 import { Box, List, Typography } from '@mui/material'
 import NavItem from './navItem'
 
@@ -17,7 +16,7 @@ const NavGroup = ({ item }: NavGroupProps) => {
   const navCollapse = item.children?.map((menuItem: any) => {
     switch (menuItem.type) {
       case 'item':
-        return <NavItem key={menuItem.id} item={menuItem} level={1} />
+        return <NavItem key={menuItem.id} item={menuItem} />
       default:
         return (
           <Typography
@@ -36,7 +35,7 @@ const NavGroup = ({ item }: NavGroupProps) => {
     <List
       subheader={
         item.title && (
-          <Box sx={{ pl: 0, mb: 1.5 }}>
+          <Box sx={{ mb: 1.5 }}>
             <Typography variant="subtitle2" color="textSecondary">
               {item.title}
             </Typography>

@@ -1,6 +1,7 @@
 import { BellOutlined, ExpandOutlined } from '@ant-design/icons'
 import {
   Box,
+  Button,
   Stack,
   Avatar,
   useTheme,
@@ -17,19 +18,24 @@ const HeaderContent = () => {
       height="100%"
       display="flex"
       justifyContent="space-between"
+      sx={{ px: { xs: 1, lg: 3 } }}
     >
-      <Stack direction="row" alignItems="center" px={1}>
+      <Stack direction="row" alignItems="center">
         {matchDownMd && (
           <Avatar sx={{ bgcolor: theme.palette.primary.main }}>I</Avatar>
         )}
       </Stack>
-      <Stack direction="row" alignItems="center" px={1}>
-        <IconButton disableRipple sx={{ color: 'text.primary' }}>
-          <BellOutlined />
-        </IconButton>
-        <IconButton disableRipple sx={{ color: 'text.primary' }}>
-          <ExpandOutlined />
-        </IconButton>
+      <Stack direction="row" alignItems="center">
+        <Button variant="text" sx={{ px: 0, minWidth: '48px' }}>
+          <IconButton disableRipple sx={{ color: 'text.primary' }}>
+            <BellOutlined />
+          </IconButton>
+        </Button>
+        <Button variant="text" sx={{ px: 0, minWidth: '48px' }}>
+          <IconButton disableRipple sx={{ color: 'text.primary' }}>
+            <ExpandOutlined />
+          </IconButton>
+        </Button>
       </Stack>
     </Box>
   )
