@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { forwardRef, useState } from 'react'
+import { forwardRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BottomNavigation, BottomNavigationAction } from '@mui/material'
 
@@ -10,7 +10,6 @@ const BottomNavigationComponent = () => {
   const dispatch = useDispatch()
 
   const openItem = useSelector((state: any) => state.menu.openItem)
-  console.log(openItem)
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     dispatch(activeItem({ openItem: [newValue] }))
@@ -31,47 +30,48 @@ const BottomNavigationComponent = () => {
       value={openItem[0]}
       onChange={handleChange}
     >
-      {menuItems.items[0].children.map((item: any) => (
-        <BottomNavigationAction
-          key={item.id}
-          onClick={() => itemHandler(item.id)}
-          label={item.title}
-          value={item.id}
-          icon={<item.icon />}
-        />
-      ))}
+      {menuItems.items[0].children.map((item: any) => {
+        const Icon = item.icon
+        const itemIcon = item.icon ? (
+          <Icon style={{ fontSize: '1.5rem' }} />
+        ) : (
+          false
+        )
+
+        let itemTarget = '_self'
+        if (item.target) {
+          itemTarget = '_blank'
+        }
+        const LinkComponent = forwardRef<HTMLAnchorElement, any>(
+          (props, ref) => {
+            const newProps = {
+              ...props,
+              href: `/${item.url}`,
+              target: itemTarget,
+            }
+
+            return <Link ref={ref} {...newProps} />
+          },
+        )
+
+        let listItemProps: any = { component: LinkComponent }
+        if (item?.external) {
+          listItemProps = { component: 'a', href: item.url, target: itemTarget }
+        }
+
+        return (
+          <BottomNavigationAction
+            {...listItemProps}
+            key={item.id}
+            onClick={() => itemHandler(item.id)}
+            label={item.title}
+            value={item.id}
+            icon={itemIcon}
+          />
+        )
+      })}
     </BottomNavigation>
   )
 }
 
 export default BottomNavigationComponent
-
-{
-  /* <BottomNavigation
-      sx={{
-        position: 'fixed',
-        bottom: 0,
-        width: 4 / 4,
-        height: 60,
-      }}
-      value={value}
-      onChange={handleChange}
-    >
-      <BottomNavigationAction label="Home" value="home" icon={<HomeIcon />} />
-      <BottomNavigationAction
-        label="Eventos"
-        value="events"
-        icon={<EventNoteIcon />}
-      />
-      <BottomNavigationAction
-        label="Criar"
-        value="create"
-        icon={<BorderColorOutlinedIcon />}
-      />
-      <BottomNavigationAction
-        label="Perfil"
-        value="profile"
-        icon={<PersonIcon />}
-      />
-    </BottomNavigation> */
-}
