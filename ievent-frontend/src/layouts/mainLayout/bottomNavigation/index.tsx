@@ -1,21 +1,53 @@
-import * as React from 'react'
-import BottomNavigation from '@mui/material/BottomNavigation'
-import BottomNavigationAction from '@mui/material/BottomNavigationAction'
+import Link from 'next/link'
+import { forwardRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { BottomNavigation, BottomNavigationAction } from '@mui/material'
 
-import HomeIcon from '@mui/icons-material/Home'
-import EventNoteIcon from '@mui/icons-material/EventNote'
-import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined'
-import PersonIcon from '@mui/icons-material/Person'
+import menuItems from '../menuItems'
+import { activeItem } from '@/store/reducers/menu'
 
 const BottomNavigationComponent = () => {
-  const [value, setValue] = React.useState('home')
+  const dispatch = useDispatch()
+
+  const openItem = useSelector((state: any) => state.menu.openItem)
+  console.log(openItem)
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue)
+    dispatch(activeItem({ openItem: [newValue] }))
+  }
+
+  const itemHandler = (id: any & void) => {
+    dispatch(activeItem({ openItem: [id] }))
   }
 
   return (
     <BottomNavigation
+      sx={{
+        position: 'fixed',
+        bottom: 0,
+        width: 4 / 4,
+        height: 60,
+      }}
+      value={openItem[0]}
+      onChange={handleChange}
+    >
+      {menuItems.items[0].children.map((item: any) => (
+        <BottomNavigationAction
+          key={item.id}
+          onClick={() => itemHandler(item.id)}
+          label={item.title}
+          value={item.id}
+          icon={<item.icon />}
+        />
+      ))}
+    </BottomNavigation>
+  )
+}
+
+export default BottomNavigationComponent
+
+{
+  /* <BottomNavigation
       sx={{
         position: 'fixed',
         bottom: 0,
@@ -41,8 +73,5 @@ const BottomNavigationComponent = () => {
         value="profile"
         icon={<PersonIcon />}
       />
-    </BottomNavigation>
-  )
+    </BottomNavigation> */
 }
-
-export default BottomNavigationComponent

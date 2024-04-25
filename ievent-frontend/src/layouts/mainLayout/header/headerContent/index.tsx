@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { BellOutlined, ExpandOutlined } from '@ant-design/icons'
 import {
   Box,
@@ -11,7 +12,17 @@ import {
 
 const HeaderContent = () => {
   const theme = useTheme()
+  const [hasMounted, setHasMounted] = useState(false)
   const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'))
+
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
+
+  if (!hasMounted) {
+    return null
+  }
+
   return (
     <Box
       width="100%"

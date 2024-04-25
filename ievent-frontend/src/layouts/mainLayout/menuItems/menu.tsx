@@ -39,6 +39,14 @@ const menu = {
       icon: icons.BorderColorOutlinedIcon,
       breadcrumbs: true,
     },
+    {
+      id: 'profile',
+      title: 'Perfil',
+      type: 'item',
+      url: 'user/profile',
+      icon: icons.PersonIcon,
+      breadcrumbs: true,
+    },
   ],
 }
 
