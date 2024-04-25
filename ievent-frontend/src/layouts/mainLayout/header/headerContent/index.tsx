@@ -6,7 +6,6 @@ import {
   Stack,
   Avatar,
   useTheme,
-  IconButton,
   useMediaQuery,
 } from '@mui/material'
 
@@ -37,15 +36,11 @@ const HeaderContent = () => {
         )}
       </Stack>
       <Stack direction="row" alignItems="center">
-        <Button variant="text" sx={{ px: 0, minWidth: '48px' }}>
-          <IconButton disableRipple sx={{ color: 'text.primary' }}>
-            <BellOutlined />
-          </IconButton>
+        <Button variant="text" sx={{ px: 0, minWidth: '48px', height: '48px' }}>
+          <BellOutlined style={{ color: theme.palette.common.black }} />
         </Button>
-        <Button variant="text" sx={{ px: 0, minWidth: '48px' }}>
-          <IconButton disableRipple sx={{ color: 'text.primary' }}>
-            <ExpandOutlined />
-          </IconButton>
+        <Button variant="text" sx={{ px: 0, minWidth: '48px', height: '48px' }}>
+          <ExpandOutlined style={{ color: theme.palette.common.black }} />
         </Button>
       </Stack>
     </Box>
