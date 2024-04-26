@@ -7,6 +7,8 @@ interface CalendarCardProps {
 
 const CalendarCard = ({ dayWeek, day }: CalendarCardProps) => {
   const theme = useTheme()
+  const date = new Date()
+  const currentDay = date.getUTCDate()
 
   return (
     <Card
@@ -17,8 +19,14 @@ const CalendarCard = ({ dayWeek, day }: CalendarCardProps) => {
         height: 80,
         borderRadius: 4,
         border: `solid 1px ${theme.palette.primary.main}`,
-        color: theme.palette.primary.contrastText,
-        backgroundColor: theme.palette.primary.main,
+        color:
+          day === currentDay
+            ? theme.palette.primary.contrastText
+            : theme.palette.common.black,
+        backgroundColor:
+          day === currentDay
+            ? theme.palette.primary.main
+            : theme.palette.grey[200],
         cursor: 'pointer',
       }}
     >
@@ -27,7 +35,11 @@ const CalendarCard = ({ dayWeek, day }: CalendarCardProps) => {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        borderBottom={`solid 1px ${theme.palette.divider}`}
+        borderBottom={
+          day === currentDay
+            ? `solid 1px ${theme.palette.divider}`
+            : `solid 1px ${theme.palette.primary.main}`
+        }
       >
         <Typography variant="h6">{dayWeek}</Typography>
       </Stack>

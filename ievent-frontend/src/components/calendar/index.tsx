@@ -48,7 +48,11 @@ const Calendar = () => {
       <Typography variant="h6">Seg, 25 de Abril, 2024</Typography>
       <Box display="flex" width="100%" py={1}>
         {week.map((item: any) => (
-          <CalendarCard key={item.id} dayWeek={item.dayWeek} day={item.day} />
+          <CalendarCard
+            key={item.id}
+            dayWeek={item.dayWeek}
+            day={parseInt(item.day)}
+          />
         ))}
       </Box>
     </Box>
