@@ -1,5 +1,18 @@
+import { Box, Typography } from '@mui/material'
+
+import Calendar from '@/components/calendar'
+
 const Events = () => {
-  return <h1>Events</h1>
+  return (
+    <>
+      <Box flexDirection="column">
+        <Box mb={2}>
+          <Typography variant="h5">Eventos</Typography>
+        </Box>
+        <Calendar />
+      </Box>
+    </>
+  )
 }
 
 export default Events
