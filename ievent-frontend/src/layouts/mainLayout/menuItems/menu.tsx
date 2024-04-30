@@ -1,12 +1,12 @@
 import HomeIcon from '@mui/icons-material/Home'
 import EventNoteIcon from '@mui/icons-material/EventNote'
-import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined'
+import SearchIcon from '@mui/icons-material/Search'
 import PersonIcon from '@mui/icons-material/Person'
 
 const icons = {
   HomeIcon,
   EventNoteIcon,
-  BorderColorOutlinedIcon,
+  SearchIcon,
   PersonIcon,
 }
 
@@ -24,19 +24,19 @@ const menu = {
       breadcrumbs: true,
     },
     {
+      id: 'serach',
+      title: 'Buscar',
+      type: 'item',
+      url: 'user/search',
+      icon: icons.SearchIcon,
+      breadcrumbs: true,
+    },
+    {
       id: 'events',
       title: 'Eventos',
       type: 'item',
       url: 'user/events',
       icon: icons.EventNoteIcon,
-      breadcrumbs: true,
-    },
-    {
-      id: 'create',
-      title: 'Criar Evento',
-      type: 'item',
-      url: 'user/create-event',
-      icon: icons.BorderColorOutlinedIcon,
       breadcrumbs: true,
     },
     {
