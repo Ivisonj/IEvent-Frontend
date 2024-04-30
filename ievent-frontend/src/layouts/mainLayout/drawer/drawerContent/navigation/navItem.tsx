@@ -49,7 +49,7 @@ const NavItem = ({ item }: NavItemProps) => {
 
   const isSelected = openItem.findIndex((id: any) => id === item.id) > -1
 
-  const textColor = 'text.primary'
+  const textColor = theme.palette.grey[600]
   const iconSelectedColor = theme.palette.common.white
 
   return (

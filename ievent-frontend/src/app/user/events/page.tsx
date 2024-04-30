@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 
-import Calendar from '@/components/calendar'
+import WeeklyCalendar from '@/components/weeklyCalendar'
 
 const Events = () => {
   return (
@@ -9,7 +9,7 @@ const Events = () => {
         <Box mb={2}>
           <Typography variant="h5">Eventos</Typography>
         </Box>
-        <Calendar />
+        <WeeklyCalendar />
       </Box>
     </>
   )

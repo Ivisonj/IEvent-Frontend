@@ -1,17 +1,23 @@
 import { Card, Stack, Typography, useTheme } from '@mui/material'
 
 interface CalendarCardProps {
-  dayWeek: string
+  weekDay: string
   day: number
+  isSelected: boolean
+  onClick: () => void
 }
 
-const CalendarCard = ({ dayWeek, day }: CalendarCardProps) => {
+const CalendarCard = ({
+  weekDay,
+  day,
+  isSelected,
+  onClick,
+}: CalendarCardProps) => {
   const theme = useTheme()
-  const date = new Date()
-  const currentDay = date.getUTCDate()
 
   return (
     <Card
+      onClick={onClick}
       variant="outlined"
       sx={{
         margin: '1px',
@@ -19,14 +25,15 @@ const CalendarCard = ({ dayWeek, day }: CalendarCardProps) => {
         height: 80,
         borderRadius: 4,
         border: `solid 1px ${theme.palette.primary.main}`,
-        color:
-          day === currentDay
-            ? theme.palette.primary.contrastText
-            : theme.palette.common.black,
-        backgroundColor:
-          day === currentDay
+        color: isSelected
+          ? theme.palette.primary.contrastText
+          : theme.palette.common.black,
+        backgroundColor: isSelected ? theme.palette.primary.main : 'inherit',
+        '&:hover': {
+          bgcolor: isSelected
             ? theme.palette.primary.main
             : theme.palette.grey[200],
+        },
         cursor: 'pointer',
       }}
     >
@@ -36,12 +43,12 @@ const CalendarCard = ({ dayWeek, day }: CalendarCardProps) => {
         alignItems="center"
         justifyContent="center"
         borderBottom={
-          day === currentDay
+          isSelected
             ? `solid 1px ${theme.palette.divider}`
             : `solid 1px ${theme.palette.primary.main}`
         }
       >
-        <Typography variant="h6">{dayWeek}</Typography>
+        <Typography variant="h6">{weekDay}</Typography>
       </Stack>
       <Stack
         height="65%"
