@@ -22,7 +22,7 @@ const HomeEventCard = ({ title, date, time, address }: HomeEventCardProps) => {
     <Card
       variant="outlined"
       sx={{
-        width: 358,
+        width: 398,
         p: 2,
         borderRadius: 5,
         backgroundColor: theme.palette.primary.main,
@@ -30,8 +30,17 @@ const HomeEventCard = ({ title, date, time, address }: HomeEventCardProps) => {
         cursor: 'pointer',
       }}
     >
-      <Stack width="100%" mb={1}>
-        <Typography variant="h5">{title}</Typography>
+      <Stack
+        width="100%"
+        mb={1}
+        sx={{
+          display: '-webkit-box',
+          WebkitLineClamp: '1',
+          '-webkit-box-orient': 'vertical',
+          overflow: 'hidden',
+        }}
+      >
+        <Typography variant="h4">{title}</Typography>
       </Stack>
       <Stack width="100%" height="45px" direction="row" mb={1}>
         <Stack
@@ -69,7 +78,7 @@ const HomeEventCard = ({ title, date, time, address }: HomeEventCardProps) => {
             variant="h5"
             sx={{
               display: '-webkit-box',
-              '-webkit-line-clamp': '1',
+              WebkitLineClamp: '1',
               '-webkit-box-orient': 'vertical',
               overflow: 'hidden',
             }}
