@@ -10,7 +10,7 @@ const eventData = [
     date: '30 Abr, 2024',
     time: '19:30',
     address: 'Av. Central, n° 323, Vermelhos, Lagoa Grande',
-    hasStarted: false,
+    hasStarted: true,
   },
 ]
 
