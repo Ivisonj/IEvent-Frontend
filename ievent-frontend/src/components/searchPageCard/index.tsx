@@ -1,6 +1,8 @@
 'use client'
 import { UserOutlined } from '@ant-design/icons'
-import { Card, Typography, Stack, Button, useTheme } from '@mui/material'
+import { Card, Typography, Stack, useTheme } from '@mui/material'
+
+import TransparentButton from '../transparentButton'
 
 interface SearchPageCardProps {
   title: string
@@ -48,21 +50,7 @@ const SearchPageCard = ({ title, createdBy }: SearchPageCardProps) => {
         </Stack>
       </Stack>
       <Stack width="100%" alignItems="flex-end">
-        <Button
-          variant="outlined"
-          sx={{
-            width: '40%',
-            borderRadius: '20px',
-            bgcolor: theme.palette.grey[100],
-            color: theme.palette.common.black,
-            opacity: '50%',
-            '&:hover': {
-              bgcolor: theme.palette.grey[300],
-            },
-          }}
-        >
-          Solicitar
-        </Button>
+        <TransparentButton>Solicitar</TransparentButton>
       </Stack>
     </Card>
   )
