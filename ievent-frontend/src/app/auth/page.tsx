@@ -8,7 +8,7 @@ const AuthPage = () => {
   const theme = useTheme()
   const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'))
   return (
-    <Box width="100vw" height="100vh" overflow="hidden">
+    <Box width="100%" height="100vh" overflow="hidden">
       {!matchDownMd && <DesktopAuthForm />}
       {matchDownMd && <MobileAuthLayout />}
     </Box>

@@ -42,7 +42,7 @@ const DesktopAuthForm = () => {
         justifyContent="center"
         alignItems="center"
         sx={{
-          bgcolor: 'inherit',
+          bgcolor: theme.palette.common.white,
           transition: theme.transitions.create('left', {
             duration: theme.transitions.duration.standard,
           }),
