@@ -1,11 +1,16 @@
-import { Box } from '@mui/material'
+'use client'
+import { Box, useMediaQuery, useTheme } from '@mui/material'
 
 import DesktopAuthForm from './desktopAuthForm'
+import MobileAuthLayout from './mobileAuthLayout'
 
 const AuthPage = () => {
+  const theme = useTheme()
+  const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'))
   return (
-    <Box width="100vw" height="100vh">
-      <DesktopAuthForm />
+    <Box width="100vw" height="100vh" overflow="hidden">
+      {!matchDownMd && <DesktopAuthForm />}
+      {matchDownMd && <MobileAuthLayout />}
     </Box>
   )
 }
