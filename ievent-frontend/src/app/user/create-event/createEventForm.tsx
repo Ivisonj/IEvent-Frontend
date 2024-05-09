@@ -22,50 +22,12 @@ import {
 import IButton from '@/components/Ibutton'
 import { TranslateLabel } from '@/utils/translateLabel'
 
-interface CustomProps {
-  onChange: (event: { target: { name: string; value: string } }) => void
-  name: string
-}
-
-const DateMaskCustom = React.forwardRef<HTMLInputElement, CustomProps>(
-  function DateMaskCustom(props, ref) {
-    const { onChange, ...other } = props
-    return (
-      <IMaskInput
-        {...other}
-        mask="00/00/0000"
-        definitions={{
-          '#': /[1-9]/,
-        }}
-        inputRef={ref}
-        onAccept={(value: any) =>
-          onChange({ target: { name: props.name, value } })
-        }
-        overwrite
-      />
-    )
-  },
-)
-
-const TimeMaskCustom = React.forwardRef<HTMLInputElement, CustomProps>(
-  function TimeMaskCustom(props, ref) {
-    const { onChange, ...other } = props
-    return (
-      <IMaskInput
-        {...other}
-        mask="00:00"
-        definitions={{
-          '#': /[1-9]/,
-        }}
-        inputRef={ref}
-        onAccept={(value: any) =>
-          onChange({ target: { name: props.name, value } })
-        }
-        overwrite
-      />
-    )
-  },
-)
+const date = new Date()
+date.setDate(date.getDate() - 1)
+const dd = date.getDate()
+const mm = date.getMonth() + 1
+const yyyy = date.getFullYear()
+const yesterdayDate = `${yyyy}-${mm}-${dd}`
 
 const createEventFormSchema = z.object({
   name: z.string().nonempty('Campo obrigatório'),
@@ -80,33 +42,24 @@ const createEventFormSchema = z.object({
     friday: z.boolean(),
     saturday: z.boolean(),
   }),
+  date: z.coerce
+    .date()
+    .min(new Date(yesterdayDate), { message: 'Data inválida' }),
+  time: z.string().refine(
+    (value) => {
+      const [hours, minutes] = value.split(':').map(Number)
+      return hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59
+    },
+    {
+      message: 'Hora inválida',
+      path: ['time'],
+    },
+  ),
 })
 
 type createEventFormData = z.infer<typeof createEventFormSchema>
 
 const CreateEventForm = () => {
-  const [dateValues, setDateValues] = React.useState({
-    textmask: '01/01/2001',
-  })
-
-  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDateValues({
-      ...dateValues,
-      [event.target.name]: event.target.value,
-    })
-  }
-
-  const [timeValue, setTimeValue] = React.useState({
-    textmask: '00:00',
-  })
-
-  const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTimeValue({
-      ...timeValue,
-      [event.target.name]: event.target.value,
-    })
-  }
-
   const {
     register,
     control,
@@ -222,15 +175,16 @@ const CreateEventForm = () => {
         <Box mb={3}>
           <InputLabel htmlFor="date">Data</InputLabel>
           <TextField
+            {...register('date')}
             fullWidth
             id="date"
-            value={dateValues.textmask}
-            onChange={handleDateChange}
-            name="textmask"
-            InputProps={{
-              inputComponent: DateMaskCustom as any,
-            }}
+            type="date"
+            name="date"
+            error={Boolean(errors.date)}
           />
+          {errors.date && (
+            <FormHelperText error>{errors.date.message}</FormHelperText>
+          )}
         </Box>
       ) : (
         <Box mb={2}>
@@ -275,7 +229,7 @@ const CreateEventForm = () => {
           </FormControl>
         </Box>
       )}
-      {watch('eventPeriod') === 'custom' && (
+      {watch('eventPeriod') === 'custom' && watch('once') === 'no' && (
         <Box mb={2}>
           <FormControl>
             <Controller
@@ -310,14 +264,11 @@ const CreateEventForm = () => {
       <Box mb={3}>
         <InputLabel htmlFor="time">Hora</InputLabel>
         <TextField
+          {...register('time')}
           fullWidth
           id="time"
-          value={timeValue.textmask}
-          onChange={handleTimeChange}
-          name="textmask"
-          InputProps={{
-            inputComponent: TimeMaskCustom as any,
-          }}
+          type="time"
+          name="time"
         />
       </Box>
       <Box>
@@ -328,161 +279,3 @@ const CreateEventForm = () => {
 }
 
 export default CreateEventForm
-
-{
-  /* <Box mb={2}>
-        <FormControl>
-          <FormLabel id="demo-radio-buttons-group-label">
-            O seu evento acontecerá em dia único?{' '}
-          </FormLabel>
-          <RadioGroup
-            row
-            aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue="yes"
-            name="radio-buttons-group"
-            onChange={handleRadioChange}
-            value={isUniqueDate}
-          >
-            <FormControlLabel value={'yes'} control={<Radio />} label="Sim" />
-            <FormControlLabel value={'no'} control={<Radio />} label="Não" />
-          </RadioGroup>
-        </FormControl>
-      </Box>
-      {isUniqueDate === 'yes' ? (
-        <Box mb={3}>
-          <InputLabel htmlFor="date">Data</InputLabel>
-          <TextField
-            fullWidth
-            id="date"
-            value={dateValues.textmask}
-            onChange={handleDateChange}
-            name="textmask"
-            InputProps={{
-              inputComponent: DateMaskCustom as any,
-            }}
-          />
-        </Box>
-      ) : (
-        <Box mb={2}>
-          <FormControl>
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              name="radio-buttons-group"
-              onChange={handleEventPeriodChange}
-              value={eventPeriod}
-            >
-              <FormControlLabel
-                value={'daily'}
-                control={<Radio />}
-                label="Diariamente"
-              />
-              <FormControlLabel
-                value={'mon/fri'}
-                control={<Radio />}
-                label="Seg a Sex"
-              />
-              <FormControlLabel
-                value={'fri/sun'}
-                control={<Radio />}
-                label="Sex a Dom"
-              />
-              <FormControlLabel
-                value={'sat/sun'}
-                control={<Radio />}
-                label="Sab e Dom"
-              />
-              <FormControlLabel
-                value={'custom'}
-                control={<Radio />}
-                label="Personalizado"
-              />
-            </RadioGroup>
-          </FormControl>
-        </Box>
-      )}
-      {eventPeriod === 'custom' && isUniqueDate === 'no' && (
-        <Box mb={2}>
-          <FormControl>
-            <FormGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              name="radio-buttons-group"
-              onChange={handleDaysOptionsChange}
-            >
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={daysOptions.monday}
-                    onChange={handleDaysOptionsChange}
-                    name="monday"
-                  />
-                }
-                label="Segunda-feira"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={daysOptions.tuesday}
-                    onChange={handleDaysOptionsChange}
-                    name="tuesday"
-                  />
-                }
-                label="Terça-feira"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={daysOptions.wednesday}
-                    onChange={handleDaysOptionsChange}
-                    name="wednesday"
-                  />
-                }
-                label="Quarta-feira"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={daysOptions.thursday}
-                    onChange={handleDaysOptionsChange}
-                    name="thursday"
-                  />
-                }
-                label="Quinta-feira"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={daysOptions.friday}
-                    onChange={handleDaysOptionsChange}
-                    name="friday"
-                  />
-                }
-                label="Sexta-feira"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={daysOptions.saturday}
-                    onChange={handleDaysOptionsChange}
-                    name="saturday"
-                  />
-                }
-                label="Sábado"
-              />
-            </FormGroup>
-          </FormControl>
-        </Box>
-      )}
-      <Box mb={3}>
-        <InputLabel htmlFor="time">Hora</InputLabel>
-        <TextField
-          fullWidth
-          id="time"
-          value={timeValue.textmask}
-          onChange={handleTimeChange}
-          name="textmask"
-          InputProps={{
-            inputComponent: TimeMaskCustom as any,
-          }}
-        />
-      </Box> */
-}
