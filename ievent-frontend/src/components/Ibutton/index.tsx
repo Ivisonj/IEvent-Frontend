@@ -1,3 +1,4 @@
+'use client'
 import { useTheme } from '@mui/material'
 import { Button } from '@mui/material'
 
