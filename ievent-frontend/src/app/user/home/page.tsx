@@ -1,4 +1,6 @@
-import { Box, Typography, Stack } from '@mui/material'
+'use client'
+import { useRouter } from 'next/navigation'
+import { Box, Button, Typography, Stack } from '@mui/material'
 
 import HomeEventCard from '@/components/homeEventCard'
 
@@ -13,6 +15,7 @@ const eventData = [
 ]
 
 const Home = () => {
+  const router = useRouter()
   return (
     <Box width="100%" height="auto" flexDirection="column">
       <Box width="100" flexDirection="column" mb={3}>
@@ -31,10 +34,19 @@ const Home = () => {
           ))}
         </Stack>
       </Box>
-      <Box width="100" flexDirection="column">
-        <Typography variant="h5" mb={1}>
-          Meus Eventos
-        </Typography>
+      <Box
+        width="100"
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Typography variant="h5">Meus Eventos</Typography>
+        <Button
+          variant="outlined"
+          onClick={() => router.push('/user/create-event')}
+        >
+          Criar Evento
+        </Button>
       </Box>
     </Box>
   )
