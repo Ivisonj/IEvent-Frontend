@@ -1,8 +1,9 @@
 'use client'
 import { ClockCircleOutlined, EnvironmentOutlined } from '@ant-design/icons'
-import { Card, Typography, Stack, useTheme } from '@mui/material'
+import { Typography, Stack } from '@mui/material'
 
 import EventStatus from '../eventStatus'
+import MainCard from '../mainCard'
 
 interface EventCardProps {
   title: string
@@ -19,19 +20,8 @@ const EventCard = ({
   address,
   hasStarted,
 }: EventCardProps) => {
-  const theme = useTheme()
   return (
-    <Card
-      variant="outlined"
-      sx={{
-        width: 398,
-        p: 2,
-        borderRadius: 5,
-        backgroundColor: theme.palette.primary.main,
-        color: theme.palette.primary.contrastText,
-        cursor: 'pointer',
-      }}
-    >
+    <MainCard>
       <Stack
         width="100%"
         mb={1}
@@ -92,7 +82,7 @@ const EventCard = ({
           </Typography>
         </Stack>
       </Stack>
-    </Card>
+    </MainCard>
   )
 }
 

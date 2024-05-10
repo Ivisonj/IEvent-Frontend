@@ -1,8 +1,9 @@
 'use client'
 import { UserOutlined } from '@ant-design/icons'
-import { Card, Typography, Stack, useTheme } from '@mui/material'
+import { Typography, Stack } from '@mui/material'
 
 import TransparentButton from '../transparentButton'
+import MainCard from '../mainCard'
 
 interface SearchPageCardProps {
   title: string
@@ -10,19 +11,8 @@ interface SearchPageCardProps {
 }
 
 const SearchPageCard = ({ title, createdBy }: SearchPageCardProps) => {
-  const theme = useTheme()
   return (
-    <Card
-      variant="outlined"
-      sx={{
-        width: 398,
-        p: 2,
-        borderRadius: 5,
-        backgroundColor: theme.palette.primary.main,
-        color: theme.palette.primary.contrastText,
-        cursor: 'pointer',
-      }}
-    >
+    <MainCard>
       <Stack
         width="100%"
         mb={1}
@@ -52,7 +42,7 @@ const SearchPageCard = ({ title, createdBy }: SearchPageCardProps) => {
       <Stack width="100%" alignItems="flex-end">
         <TransparentButton>Solicitar</TransparentButton>
       </Stack>
-    </Card>
+    </MainCard>
   )
 }
 
