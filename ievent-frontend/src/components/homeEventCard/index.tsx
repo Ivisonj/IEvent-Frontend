@@ -1,13 +1,8 @@
 'use client'
 import { ClockCircleOutlined, EnvironmentOutlined } from '@ant-design/icons'
-import {
-  Card,
-  Typography,
-  Stack,
-  useTheme,
-  Avatar,
-  AvatarGroup,
-} from '@mui/material'
+import { Typography, Stack, Avatar, AvatarGroup } from '@mui/material'
+
+import MainCard from '../mainCard'
 
 interface HomeEventCardProps {
   title: string
@@ -17,19 +12,8 @@ interface HomeEventCardProps {
 }
 
 const HomeEventCard = ({ title, date, time, address }: HomeEventCardProps) => {
-  const theme = useTheme()
   return (
-    <Card
-      variant="outlined"
-      sx={{
-        width: 398,
-        p: 2,
-        borderRadius: 5,
-        backgroundColor: theme.palette.primary.main,
-        color: theme.palette.primary.contrastText,
-        cursor: 'pointer',
-      }}
-    >
+    <MainCard>
       <Stack
         width="100%"
         mb={1}
@@ -95,7 +79,7 @@ const HomeEventCard = ({ title, date, time, address }: HomeEventCardProps) => {
           <Avatar alt="Agnes Walker" src="" />
         </AvatarGroup>
       </Stack>
-    </Card>
+    </MainCard>
   )
 }
 
