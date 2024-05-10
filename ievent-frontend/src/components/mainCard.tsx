@@ -3,13 +3,9 @@ import { Card, useTheme } from '@mui/material'
 
 interface MainCardProps {
   children: ReactNode
+  sx?: object
   width?: string
   p?: string
-  m?: string
-  ml?: string
-  mt?: string
-  mr?: string
-  mb?: string
   borderRadius?: string
   bgColor?: string
   color?: string
@@ -18,13 +14,9 @@ interface MainCardProps {
 
 const MainCard = ({
   children,
+  sx,
   width,
   p,
-  m,
-  ml,
-  mt,
-  mr,
-  mb,
   borderRadius,
   bgColor,
   color,
@@ -36,14 +28,10 @@ const MainCard = ({
       onClick={onClick}
       variant="outlined"
       sx={{
+        ...sx,
         width: `${width || '398px'}`,
         height: 'auto',
         p: `${p || '16px'}`,
-        m: m,
-        ml: ml,
-        mt: mt,
-        mr: mr,
-        mb: mb,
         borderRadius: `${borderRadius || '20px'}`,
         backgroundColor: `${bgColor || theme.palette.primary.main}`,
         color: `${color || theme.palette.primary.contrastText}`,
