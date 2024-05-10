@@ -9,7 +9,7 @@ const MyEvent = () => {
         Meus Eventos
       </Typography>
       <Box width="100%">
-        <EventStats />
+        <EventStats totalGuests={50} totalEvents={10} />
       </Box>
     </Box>
   )
