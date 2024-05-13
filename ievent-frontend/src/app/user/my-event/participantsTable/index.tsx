@@ -1,16 +1,11 @@
 'use client'
-import {
-  Box,
-  useTheme,
-  TableContainer,
-  Table,
-  TableBody,
-  TableRow,
-  TableCell,
-} from '@mui/material'
+import { Box, useTheme, TableContainer, Table } from '@mui/material'
 
 import MainCard from '@/components/mainCard'
 import ParticipantsTableHead from './tableHead'
+import ParticipantsTableContent from './tableContent'
+
+export type Order = 'desc' | 'asc'
 
 export interface ParticipantsTableHeadTypes {
   id: string
@@ -18,7 +13,8 @@ export interface ParticipantsTableHeadTypes {
   attendance: number
   delays: number
   absences: number
-  actions: any
+  frequency: string
+  actions?: any
 }
 
 const ParticipantsTable = () => {
@@ -47,6 +43,7 @@ const ParticipantsTable = () => {
         >
           <Table aria-labelledby="tableTitle">
             <ParticipantsTableHead order={order} orderBy={orderBy} />
+            <ParticipantsTableContent order={order} orderBy={orderBy} />
           </Table>
         </TableContainer>
       </MainCard>
