@@ -1,4 +1,5 @@
-import { TableBody, TableRow, TableCell } from '@mui/material'
+import { MessageOutlined, DeleteOutlined } from '@ant-design/icons'
+import { Button, Badge, TableBody, TableRow, TableCell } from '@mui/material'
 
 import { ParticipantsTableHeadTypes, Order } from '..'
 import ParticipantStatus from './participantStatus'
@@ -100,6 +101,22 @@ const ParticipantsTableContent = ({
                 frequency={String(row.frequency)}
                 absences={Number(row.absences)}
               />
+            </TableCell>
+            <TableCell>
+              <Button
+                variant="text"
+                sx={{ mr: 1, minWidth: '35px', height: '35px' }}
+              >
+                <Badge badgeContent={2} color="primary">
+                  <MessageOutlined style={{ fontSize: '1rem' }} />
+                </Badge>
+              </Button>
+              <Button
+                variant="text"
+                sx={{ px: 0, minWidth: '35px', height: '35px' }}
+              >
+                <DeleteOutlined style={{ fontSize: '1rem' }} />
+              </Button>
             </TableCell>
           </TableRow>
         )

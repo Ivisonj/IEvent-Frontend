@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Stack,
+  Badge,
   Avatar,
   useTheme,
   useMediaQuery,
@@ -37,7 +38,9 @@ const HeaderContent = () => {
       </Stack>
       <Stack direction="row" alignItems="center">
         <Button variant="text" sx={{ px: 0, minWidth: '48px', height: '48px' }}>
-          <BellOutlined style={{ color: theme.palette.common.black }} />
+          <Badge badgeContent={2} color="primary">
+            <BellOutlined style={{ color: theme.palette.common.black }} />
+          </Badge>
         </Button>
         <Button variant="text" sx={{ px: 0, minWidth: '48px', height: '48px' }}>
           <ExpandOutlined style={{ color: theme.palette.common.black }} />
