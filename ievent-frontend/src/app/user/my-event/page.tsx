@@ -8,10 +8,10 @@ const MyEvent = () => {
   return (
     <Box width="100%" height="auto" flexDirection="column">
       <Typography variant="h5" mb={1}>
-        Meus Eventos
+        Meu Evento
       </Typography>
       <Box width="100%">
-        <EventStats nextEvent="20, Mai" totalGuests={50} totalEvents={10} />
+        <EventStats nextEvent="20 Mai" totalGuests={50} totalEvents={10} />
         <Box mt={2}>
           <Typography variant="h5" mb={1}>
             Participantes
