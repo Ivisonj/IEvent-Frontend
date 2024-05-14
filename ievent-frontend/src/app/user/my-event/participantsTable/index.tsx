@@ -5,23 +5,17 @@ import MainCard from '@/components/mainCard'
 import ParticipantsTableHead from './tableHead'
 import ParticipantsTableContent from './tableContent'
 
-export type Order = 'desc' | 'asc'
-
-export interface ParticipantsTableHeadTypes {
+export interface ParticipantsTableDataTypes {
   id: string
   name: string
   attendance: number
   delays: number
   absences: number
   frequency: string
-  actions?: any
 }
 
 const ParticipantsTable = () => {
   const theme = useTheme()
-
-  const order = 'asc'
-  const orderBy = 'id'
 
   return (
     <Box width="100%">
@@ -42,8 +36,8 @@ const ParticipantsTable = () => {
           }}
         >
           <Table aria-labelledby="tableTitle">
-            <ParticipantsTableHead order={order} orderBy={orderBy} />
-            <ParticipantsTableContent order={order} orderBy={orderBy} />
+            <ParticipantsTableHead />
+            <ParticipantsTableContent />
           </Table>
         </TableContainer>
       </MainCard>

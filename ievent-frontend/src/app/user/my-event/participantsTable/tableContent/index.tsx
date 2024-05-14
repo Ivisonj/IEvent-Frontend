@@ -1,45 +1,7 @@
 import { MessageOutlined, DeleteOutlined } from '@ant-design/icons'
 import { Button, Badge, TableBody, TableRow, TableCell } from '@mui/material'
 
-import { ParticipantsTableHeadTypes, Order } from '..'
 import ParticipantStatus from './participantStatus'
-
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1
-  }
-  return 0
-}
-
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key,
-): (
-  a: { [key in Key]: number | string },
-  b: { [key in Key]: number | string },
-) => number {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy)
-}
-
-function stableSort<T>(
-  array: readonly T[],
-  comparator: (a: T, b: T) => number,
-) {
-  const stabilizedThis = array.map((el, index) => [el, index] as [T, number])
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0])
-    if (order !== 0) {
-      return order
-    }
-    return a[1] - b[1]
-  })
-  return stabilizedThis.map((el) => el[0])
-}
 
 const rows = [
   {
@@ -68,18 +30,17 @@ const rows = [
   },
 ]
 
-interface ParticipantsTableContentProps {
-  order: Order
-  orderBy: keyof ParticipantsTableHeadTypes
-}
+const ParticipantsTableContent = () => {
+  const handleShowMessageClick = (id: string) => {
+    console.log(id)
+  }
 
-const ParticipantsTableContent = ({
-  order,
-  orderBy,
-}: ParticipantsTableContentProps) => {
+  const handleDeleteUserClick = (id: string) => {
+    console.log(id)
+  }
   return (
     <TableBody>
-      {stableSort(rows, getComparator(order, orderBy)).map((row, index) => {
+      {rows.map((row, index) => {
         const labelId = `enhanced-table-checkbox-${index}`
 
         return (
@@ -106,6 +67,7 @@ const ParticipantsTableContent = ({
               <Button
                 variant="text"
                 sx={{ mr: 1, minWidth: '35px', height: '35px' }}
+                onClick={() => handleShowMessageClick(row.id)}
               >
                 <Badge badgeContent={2} color="primary">
                   <MessageOutlined style={{ fontSize: '1rem' }} />
@@ -114,6 +76,7 @@ const ParticipantsTableContent = ({
               <Button
                 variant="text"
                 sx={{ px: 0, minWidth: '35px', height: '35px' }}
+                onClick={() => handleDeleteUserClick(row.id)}
               >
                 <DeleteOutlined style={{ fontSize: '1rem' }} />
               </Button>

@@ -28,7 +28,7 @@ const MyEvent = () => {
             </IButton>
             <IButton
               type="button"
-              width="175px"
+              width="auto"
               bgColor="error.main"
               hover="error.dark"
             >

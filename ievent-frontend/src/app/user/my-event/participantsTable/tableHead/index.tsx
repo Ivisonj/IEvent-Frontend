@@ -1,10 +1,7 @@
 import { TableHead, TableRow, TableCell } from '@mui/material'
 
-import { ParticipantsTableHeadTypes } from '..'
-import { Order } from '..'
-
 interface HeadCell {
-  id: keyof ParticipantsTableHeadTypes
+  id: string
   disablePadding: boolean
   align: 'left' | 'right' | 'center'
   label: string
@@ -49,15 +46,7 @@ const headCells: HeadCell[] = [
   },
 ]
 
-interface ParticipantsTableHeadProps {
-  order: Order
-  orderBy: keyof ParticipantsTableHeadTypes
-}
-
-const ParticipantsTableHead = ({
-  order,
-  orderBy,
-}: ParticipantsTableHeadProps) => {
+const ParticipantsTableHead = () => {
   return (
     <TableHead>
       <TableRow>
@@ -66,7 +55,6 @@ const ParticipantsTableHead = ({
             key={headCell.id}
             align={headCell.align}
             padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
           >
             {headCell.label}
           </TableCell>
