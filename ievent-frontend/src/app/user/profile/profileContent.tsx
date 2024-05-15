@@ -1,5 +1,4 @@
 'use client'
-import { useState } from 'react'
 import {
   Box,
   Stack,
@@ -13,19 +12,13 @@ import {
 } from '@mui/material'
 
 import {
-  EditOutlined,
+  CarryOutOutlined,
   PoweroffOutlined,
-  RightOutlined,
+  CalendarOutlined,
 } from '@ant-design/icons'
 
 const ProfileContent = () => {
   const theme = useTheme()
-
-  const [selectedIndex, setSelectedIndex] = useState(0)
-
-  const handleListItemClick = (event, index) => {
-    setSelectedIndex(index)
-  }
 
   return (
     <Box
@@ -81,18 +74,14 @@ const ProfileContent = () => {
               alignItems: 'center',
               justifyContent: 'space-between',
             }}
-            selected={selectedIndex === 0}
-            onClick={(event) => handleListItemClick(event, 0)}
           >
             <Stack direction="row" alignItems="center">
               <ListItemIcon>
-                <EditOutlined />
+                <CarryOutOutlined />
               </ListItemIcon>
-              <ListItemText primary="Editar Perfil" />
+              <ListItemText primary="Meus Eventos" />
             </Stack>
-            <ListItemIcon sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <RightOutlined />
-            </ListItemIcon>
+            <Typography>2</Typography>
           </ListItemButton>
         </List>
         <List
@@ -111,8 +100,32 @@ const ProfileContent = () => {
               alignItems: 'center',
               justifyContent: 'space-between',
             }}
-            selected={selectedIndex === 1}
-            onClick={(event) => handleListItemClick(event, 1)}
+          >
+            <Stack direction="row" alignItems="center">
+              <ListItemIcon>
+                <CalendarOutlined />
+              </ListItemIcon>
+              <ListItemText primary="Eventos que Participo" />
+            </Stack>
+            <Typography>5</Typography>
+          </ListItemButton>
+        </List>
+        <List
+          component="nav"
+          sx={{
+            p: 0,
+            '& .MuiListItemIcon-root': {
+              minWidth: 32,
+              color: theme.palette.grey[500],
+            },
+          }}
+        >
+          <ListItemButton
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
           >
             <Stack direction="row" alignItems="center">
               <ListItemIcon>
@@ -120,9 +133,6 @@ const ProfileContent = () => {
               </ListItemIcon>
               <ListItemText primary="Sair" />
             </Stack>
-            <ListItemIcon sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <RightOutlined />
-            </ListItemIcon>
           </ListItemButton>
         </List>
       </Stack>
