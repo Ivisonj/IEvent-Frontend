@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { BellOutlined, ExpandOutlined } from '@ant-design/icons'
+import { useRouter } from 'next/navigation'
+import { BellOutlined, ScanOutlined } from '@ant-design/icons'
 import {
   Box,
   Button,
@@ -11,6 +12,7 @@ import {
 } from '@mui/material'
 
 const HeaderContent = () => {
+  const router = useRouter()
   const theme = useTheme()
   const [hasMounted, setHasMounted] = useState(false)
   const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'))
@@ -37,13 +39,17 @@ const HeaderContent = () => {
         )}
       </Stack>
       <Stack direction="row" alignItems="center">
-        <Button variant="text" sx={{ px: 0, minWidth: '48px', height: '48px' }}>
+        <Button
+          variant="text"
+          sx={{ px: 0, minWidth: '48px', height: '48px' }}
+          onClick={() => router.push('/user/notifications')}
+        >
           <Badge badgeContent={2} color="primary">
             <BellOutlined style={{ color: theme.palette.common.black }} />
           </Badge>
         </Button>
         <Button variant="text" sx={{ px: 0, minWidth: '48px', height: '48px' }}>
-          <ExpandOutlined style={{ color: theme.palette.common.black }} />
+          <ScanOutlined style={{ color: theme.palette.common.black }} />
         </Button>
       </Stack>
     </Box>
