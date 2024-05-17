@@ -1,4 +1,6 @@
 'use client'
+import React, { useState } from 'react'
+import { v4 as uuid } from 'uuid'
 import { SendOutlined } from '@ant-design/icons'
 import { Box, useTheme, TextField, IconButton } from '@mui/material'
 
@@ -8,15 +10,17 @@ import Message from './message'
 
 interface MessageTypes {
   id: string
+  userId: string
   avatarUrl?: string
   sentAt: string
   message: string
   type: 'sent' | 'received'
 }
 
-const data: MessageTypes[] = [
+const conversation: MessageTypes[] = [
   {
     id: '01',
+    userId: '001',
     avatarUrl: '',
     sentAt: '22:30',
     message: 'Bom dia! Gostaria de falar com você',
@@ -25,6 +29,7 @@ const data: MessageTypes[] = [
   {
     id: '02',
     avatarUrl: '',
+    userId: '002',
     sentAt: '22:31',
     message: 'Bom dia! Okay. vamos conversar.',
     type: 'sent',
@@ -33,6 +38,39 @@ const data: MessageTypes[] = [
 
 const ChatContent = () => {
   const theme = useTheme()
+  const [inputValue, setInputValue] = useState<string | null>()
+
+  const handleChangeInputValue = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setInputValue(event.target.value)
+  }
+
+  const [chat, setChat] = useState(conversation)
+
+  const createMessage = () => {
+    const newMessage: MessageTypes = {
+      id: uuid(),
+      userId: '0001',
+      sentAt: new Date().toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
+      message: inputValue!,
+      type: 'sent',
+    }
+
+    setChat((prevChat) => {
+      const updatedChat = [...prevChat]
+
+      updatedChat.push(newMessage)
+
+      return updatedChat
+    })
+
+    setInputValue('')
+  }
+
   return (
     <MainCard
       width="100%"
@@ -46,14 +84,16 @@ const ChatContent = () => {
         sx={{
           width: '100%',
           height: { xs: '80%', lg: '59%' },
+          overflowY: 'scroll',
           p: 2,
-          bgcolor: theme.palette.grey[100],
+          bgcolor: theme.palette.grey[200],
         }}
       >
-        {data.map((item: MessageTypes) => (
+        {chat.map((item: MessageTypes) => (
           <Message
             key={item.id}
             id={item.id}
+            userId={item.userId}
             avatarUrl={item.avatarUrl}
             sentAt={item.sentAt}
             message={item.message}
@@ -80,10 +120,12 @@ const ChatContent = () => {
             rows={3}
             variant="standard"
             fullWidth
+            value={inputValue}
+            onChange={handleChangeInputValue}
           />
         </Box>
         <Box sx={{ flex: '0 0 auto' }}>
-          <IconButton>
+          <IconButton onClick={createMessage}>
             <SendOutlined
               style={{
                 fontSize: '1.5rem',
