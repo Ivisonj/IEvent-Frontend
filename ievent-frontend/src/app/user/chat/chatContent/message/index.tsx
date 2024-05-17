@@ -2,6 +2,7 @@ import { Box, Stack, Typography, Avatar, Card, useTheme } from '@mui/material'
 
 interface MessageProps {
   id?: string
+  userId?: string
   avatarUrl?: string
   sentAt: string
   message: string
@@ -17,7 +18,6 @@ const Message = ({ avatarUrl, sentAt, message, type }: MessageProps) => {
     ml: '10px',
     display: 'flex',
     flexDirection: 'column',
-    backgroundcolor: 'red',
   }
 
   const sentMessageStyle = {
@@ -27,21 +27,22 @@ const Message = ({ avatarUrl, sentAt, message, type }: MessageProps) => {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
-    backgroundcolor: 'red',
   }
 
   const ReceivedMessageComponent = (
-    <Box sx={{ width: 4 / 4, height: 'auto', display: 'flex' }}>
+    <Box sx={{ width: '100%', height: 'auto', display: 'flex' }}>
       <Stack>
         <Avatar alt="avatar" src={avatarUrl} />
       </Stack>
       <Box sx={receivedMsgStyle}>
-        <Card>
+        <Card variant="outlined">
           <Typography variant="h6" p="8px">
             {message}
           </Typography>
         </Card>
-        <Typography variant="body2">{'10:00'}</Typography>
+        <Typography variant="body2" color={theme.palette.common.black}>
+          {sentAt}
+        </Typography>
       </Box>
     </Box>
   )
@@ -56,12 +57,17 @@ const Message = ({ avatarUrl, sentAt, message, type }: MessageProps) => {
       }}
     >
       <Box sx={sentMessageStyle}>
-        <Card sx={{ backgroundColor: theme.palette.primary.main }}>
+        <Card
+          variant="outlined"
+          sx={{ backgroundColor: theme.palette.primary.main }}
+        >
           <Typography variant="h6" p="8px" color={theme.palette.common.white}>
             {message}
           </Typography>
         </Card>
-        <Typography variant="body2">{sentAt}</Typography>
+        <Typography variant="body2" color={theme.palette.common.black}>
+          {sentAt}
+        </Typography>
       </Box>
       <Stack ml="10px">
         <Avatar alt="avatar" src={avatarUrl} />
