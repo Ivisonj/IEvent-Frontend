@@ -30,6 +30,14 @@ const data: NotificationsTypes[] = [
   },
   {
     id: '03',
+    userName: 'Ivison Joel',
+    sentAt: '09:00',
+    date: '11 Mai, 2024',
+    readed: true,
+    type: 'alert',
+  },
+  {
+    id: '04',
     userName: 'Coral Jovem',
     sentAt: '17:30',
     date: '08 Mai, 2024',

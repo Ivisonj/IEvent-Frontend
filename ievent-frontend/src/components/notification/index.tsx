@@ -1,6 +1,7 @@
 import {
   UserAddOutlined,
   MessageOutlined,
+  ExclamationCircleOutlined,
   FrownOutlined,
 } from '@ant-design/icons'
 import {
@@ -20,7 +21,7 @@ interface NotificationProps {
   sentAt: string
   date: string
   readed: boolean
-  type: 'solicitation' | 'message' | 'cancel'
+  type: 'solicitation' | 'message' | 'alert' | 'cancel'
 }
 const Notification = ({
   userName,
@@ -32,23 +33,29 @@ const Notification = ({
   const notificationData =
     type === 'solicitation'
       ? {
-        bgcolor: 'success.lighter',
-        color: 'success.main',
-        text: `${userName} enviou uma solicitação.`,
-      }
+          bgcolor: 'success.lighter',
+          color: 'success.main',
+          text: `${userName} enviou uma solicitação.`,
+        }
       : type === 'message'
         ? {
-          bgcolor: 'info.lighter',
-          color: 'info.main',
-          text: `${userName} enviou uma menssagem.`,
-        }
-        : type === 'cancel'
-          ? {
-            bgcolor: 'error.lighter',
-            color: 'error.main',
-            text: `${userName} cancelou o evento.`,
+            bgcolor: 'info.lighter',
+            color: 'info.main',
+            text: `${userName} enviou uma menssagem.`,
           }
-          : null
+        : type === 'alert'
+          ? {
+              bgcolor: 'warning.lighter',
+              color: 'warning.main',
+              text: `${userName} tem uma informção importante.`,
+            }
+          : type === 'cancel'
+            ? {
+                bgcolor: 'error.lighter',
+                color: 'error.main',
+                text: `${userName} cancelou o evento.`,
+              }
+            : null
   return (
     <List
       component="nav"
@@ -66,6 +73,7 @@ const Notification = ({
           >
             {type === 'solicitation' && <UserAddOutlined />}
             {type === 'message' && <MessageOutlined />}
+            {type === 'alert' && <ExclamationCircleOutlined />}
             {type === 'cancel' && <FrownOutlined />}
           </Avatar>
         </ListItemAvatar>
