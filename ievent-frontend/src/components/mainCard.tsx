@@ -5,6 +5,7 @@ interface MainCardProps {
   children: ReactNode
   sx?: object
   width?: string
+  height: string
   p?: string
   borderRadius?: string
   bgColor?: string
@@ -16,6 +17,7 @@ const MainCard = ({
   children,
   sx,
   width,
+  height,
   p,
   borderRadius,
   bgColor,
@@ -30,7 +32,7 @@ const MainCard = ({
       sx={{
         ...sx,
         width: `${width || '398px'}`,
-        height: 'auto',
+        height: `${height || 'auto'}`,
         p: `${p || '16px'}`,
         borderRadius: `${borderRadius || '20px'}`,
         backgroundColor: `${bgColor || theme.palette.primary.main}`,
