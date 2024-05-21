@@ -32,31 +32,31 @@ const Notification = ({
   type,
   onCLick,
 }: NotificationProps) => {
-  const notificationData =
+  const notificationStyle =
     type === 'solicitation'
       ? {
-          bgcolor: 'success.lighter',
-          color: 'success.main',
-          text: `${userName} enviou uma solicitação.`,
-        }
+        bgcolor: 'success.lighter',
+        color: 'success.main',
+        text: 'enviou uma solicitação.',
+      }
       : type === 'message'
         ? {
-            bgcolor: 'info.lighter',
-            color: 'info.main',
-            text: `${userName} enviou uma menssagem.`,
-          }
+          bgcolor: 'info.lighter',
+          color: 'info.main',
+          text: 'enviou uma menssagem.',
+        }
         : type === 'alert'
           ? {
-              bgcolor: 'warning.lighter',
-              color: 'warning.main',
-              text: `${userName} tem uma informção importante.`,
-            }
+            bgcolor: 'warning.lighter',
+            color: 'warning.main',
+            text: 'tem uma informção importante.',
+          }
           : type === 'cancel'
             ? {
-                bgcolor: 'error.lighter',
-                color: 'error.main',
-                text: `${userName} cancelou o evento.`,
-              }
+              bgcolor: 'error.lighter',
+              color: 'error.main',
+              text: 'cancelou o evento.',
+            }
             : null
   return (
     <List
@@ -65,12 +65,19 @@ const Notification = ({
         bgcolor: !readed ? 'primary.lighter' : '',
       }}
     >
-      <ListItemButton onClick={onCLick}>
+      <ListItemButton
+        onClick={onCLick}
+        sx={{
+          ':hover': {
+            bgcolor: !readed ? 'primary.lighter' : '',
+          },
+        }}
+      >
         <ListItemAvatar>
           <Avatar
             sx={{
-              color: notificationData?.color,
-              bgcolor: notificationData?.bgcolor,
+              color: notificationStyle?.color,
+              bgcolor: notificationStyle?.bgcolor,
             }}
           >
             {type === 'solicitation' && <UserAddOutlined />}
@@ -81,7 +88,12 @@ const Notification = ({
         </ListItemAvatar>
         <ListItemText
           primary={
-            <Typography variant="h6">{notificationData?.text}</Typography>
+            <Typography variant="h6">
+              <Typography component="span" variant="subtitle1">
+                {userName}
+              </Typography>{' '}
+              {notificationStyle?.text}
+            </Typography>
           }
           secondary={date}
         />
