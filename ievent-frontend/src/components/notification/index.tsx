@@ -22,6 +22,7 @@ interface NotificationProps {
   date: string
   readed: boolean
   type: 'solicitation' | 'message' | 'alert' | 'cancel'
+  onCLick: () => void
 }
 const Notification = ({
   userName,
@@ -29,6 +30,7 @@ const Notification = ({
   date,
   readed,
   type,
+  onCLick,
 }: NotificationProps) => {
   const notificationData =
     type === 'solicitation'
@@ -63,7 +65,7 @@ const Notification = ({
         bgcolor: !readed ? 'primary.lighter' : '',
       }}
     >
-      <ListItemButton>
+      <ListItemButton onClick={onCLick}>
         <ListItemAvatar>
           <Avatar
             sx={{

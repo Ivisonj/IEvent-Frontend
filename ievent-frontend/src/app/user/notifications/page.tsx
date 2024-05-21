@@ -1,6 +1,8 @@
+'use client'
+import { useState } from 'react'
 import { Box, Typography } from '@mui/material'
-
 import Notification from '@/components/notification'
+import NotificationModal from '@/components/notificationModal'
 
 interface NotificationsTypes {
   id: string
@@ -47,23 +49,34 @@ const data: NotificationsTypes[] = [
 ]
 
 const NotificationsPage = () => {
+  const [open, setOpen] = useState(false)
+  const handleClose = () => setOpen(false)
+  const [selectedId, setSelectedId] = useState<string>('')
+  const handleGetItemIdclick = (id: string) => {
+    setSelectedId(id)
+    setOpen(true)
+  }
   return (
-    <Box width="100%" height="auto" flexDirection="column">
-      <Typography variant="h5">Notificações</Typography>
+    <>
       <Box width="100%" height="auto" flexDirection="column">
-        {data.map((item: NotificationsTypes) => (
-          <Notification
-            key={item.id}
-            id={item.id}
-            userName={item.userName}
-            sentAt={item.sentAt}
-            date={item.date}
-            readed={item.readed}
-            type={item.type}
-          />
-        ))}
+        <Typography variant="h5">Notificações</Typography>
+        <Box width="100%" height="auto" flexDirection="column">
+          {data.map((item: NotificationsTypes) => (
+            <Notification
+              key={item.id}
+              id={item.id}
+              userName={item.userName}
+              sentAt={item.sentAt}
+              date={item.date}
+              readed={item.readed}
+              type={item.type}
+              onCLick={() => handleGetItemIdclick(item.id)}
+            />
+          ))}
+        </Box>
       </Box>
-    </Box>
+      <NotificationModal open={open} handleClose={handleClose} />
+    </>
   )
 }
 
