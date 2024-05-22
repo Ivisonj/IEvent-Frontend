@@ -14,6 +14,7 @@ interface IButtonProps {
   my?: string
   mx?: string
   borderRadius?: string
+  border?: string
   onClick?: () => void
 }
 
@@ -29,6 +30,7 @@ const IButton = ({
   my,
   mx,
   borderRadius,
+  border,
   onClick,
 }: IButtonProps) => {
   const theme = useTheme()
@@ -40,6 +42,7 @@ const IButton = ({
       variant="contained"
       sx={{
         borderRadius: `${borderRadius || '20px'}`,
+        border: border ? `solid 1px ${border}` : 'none',
         width: `${width || '100%'}`,
         height: `${height || '2.6rem'}`,
         backgroundColor: `${bgColor || theme.palette.primary.main}`,

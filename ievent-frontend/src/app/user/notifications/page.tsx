@@ -7,10 +7,11 @@ import NotificationModal from '@/components/notificationModal'
 interface NotificationsTypes {
   id: string
   userName: string
+  message?: string | null
   sentAt: string
   date: string
   readed: boolean
-  type: 'solicitation' | 'message' | 'cancel'
+  type: 'solicitation' | 'message' | 'alert' | 'cancel'
 }
 
 const data: NotificationsTypes[] = [
@@ -25,6 +26,7 @@ const data: NotificationsTypes[] = [
   {
     id: '02',
     userName: 'Maria Julia',
+    message: '',
     sentAt: '10:00',
     date: '09 Mai, 2024',
     readed: true,
@@ -33,6 +35,7 @@ const data: NotificationsTypes[] = [
   {
     id: '03',
     userName: 'Ivison Joel',
+    message: 'Temos uma informação importante! use roupas lever.',
     sentAt: '09:00',
     date: '11 Mai, 2024',
     readed: true,
@@ -41,6 +44,8 @@ const data: NotificationsTypes[] = [
   {
     id: '04',
     userName: 'Coral Jovem',
+    message:
+      'Gostariamos de informar que o evento do dia 21/05/2024 foi cancelado.',
     sentAt: '17:30',
     date: '08 Mai, 2024',
     readed: true,
@@ -51,15 +56,18 @@ const data: NotificationsTypes[] = [
 const NotificationsPage = () => {
   const [open, setOpen] = useState(false)
   const handleClose = () => setOpen(false)
-  const [selectedId, setSelectedId] = useState<string>('')
-  const handleGetItemIdclick = (id: string) => {
-    setSelectedId(id)
+  const [selectedNotification, setSelectedNotification] =
+    useState<NotificationsTypes>()
+  const handleGetItemIdclick = (notificationData: NotificationsTypes) => {
+    setSelectedNotification(notificationData)
     setOpen(true)
   }
   return (
     <>
       <Box width="100%" height="auto" flexDirection="column">
-        <Typography variant="h5">Notificações</Typography>
+        <Typography variant="h5" mb={1}>
+          Notificações
+        </Typography>
         <Box width="100%" height="auto" flexDirection="column">
           {data.map((item: NotificationsTypes) => (
             <Notification
@@ -70,12 +78,16 @@ const NotificationsPage = () => {
               date={item.date}
               readed={item.readed}
               type={item.type}
-              onCLick={() => handleGetItemIdclick(item.id)}
+              onCLick={() => handleGetItemIdclick(item)}
             />
           ))}
         </Box>
       </Box>
-      <NotificationModal open={open} handleClose={handleClose} />
+      <NotificationModal
+        notificationData={selectedNotification!}
+        open={open}
+        handleClose={handleClose}
+      />
     </>
   )
 }
