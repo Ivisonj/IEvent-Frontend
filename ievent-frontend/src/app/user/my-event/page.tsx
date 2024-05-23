@@ -23,17 +23,30 @@ const MyEvent = () => {
             display="flex"
             justifyContent="space-between"
           >
-            <IButton type="button" width="auto">
-              Cancelar Próximo Evento
-            </IButton>
-            <IButton
-              type="button"
-              width="auto"
-              bgColor="error.main"
-              hover="error.dark"
-            >
-              Excluir Evento
-            </IButton>
+            <Box>
+              <IButton
+                type="button"
+                width="auto"
+                bgColor="info.main"
+                hover="info.dark"
+              >
+                Enviar Notificação
+              </IButton>
+            </Box>
+            <Box>
+              <IButton type="button" width="auto">
+                Cancelar Próximo Evento
+              </IButton>
+              <IButton
+                m="0px 0px 0px 5px"
+                type="button"
+                width="auto"
+                bgColor="error.main"
+                hover="error.dark"
+              >
+                Excluir Evento
+              </IButton>
+            </Box>
           </Box>
         </Box>
       </Box>

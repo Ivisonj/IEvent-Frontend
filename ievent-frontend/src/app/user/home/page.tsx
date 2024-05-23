@@ -42,7 +42,7 @@ const Home = () => {
       >
         <Typography variant="h5">Meus Eventos</Typography>
         <Button
-          variant="outlined"
+          variant="text"
           onClick={() => router.push('/user/create-event')}
         >
           Criar Evento
