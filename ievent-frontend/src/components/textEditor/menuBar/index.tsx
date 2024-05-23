@@ -7,7 +7,6 @@ import FormatItalicIcon from '@mui/icons-material/FormatItalic'
 import StrikethroughSIcon from '@mui/icons-material/StrikethroughS'
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
-import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule'
 import UndoIcon from '@mui/icons-material/Undo'
 import RedoIcon from '@mui/icons-material/Redo'
 
@@ -193,12 +192,6 @@ const MenuBar = () => {
           }}
         >
           <FormatListNumberedIcon />
-        </button>
-        <button
-          onClick={() => editor.chain().focus().setHorizontalRule().run()}
-          style={buttonStyle}
-        >
-          <HorizontalRuleIcon />
         </button>
         <button
           onClick={() => editor.chain().focus().undo().run()}
