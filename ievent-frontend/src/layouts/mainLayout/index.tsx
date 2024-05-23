@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Box, useMediaQuery, useTheme } from '@mui/material'
 
 import { drawerWidth } from '@/config'
@@ -8,6 +9,16 @@ import BottomNavigationComponent from './bottomNavigation'
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const theme = useTheme()
   const matchDownMd = useMediaQuery(theme.breakpoints.down('lg'))
+  const [hasMounted, setHasMounted] = useState(false)
+
+  useEffect(() => {
+    setHasMounted(true)
+  }, [])
+
+  if (!hasMounted) {
+    return null
+  }
+
   return (
     <Box
       sx={{
