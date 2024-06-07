@@ -31,9 +31,9 @@ const yesterdayDate = `${yyyy}-${mm}-${dd}`
 const createEventFormSchema = z.object({
   name: z.string().nonempty('Campo obrigatório'),
   isPublic: z.enum(['yes', 'no']),
-  once: z.enum(['yes', 'no']),
+  isUniqueDay: z.enum(['yes', 'no']),
   eventPeriod: z.enum(['daily', 'mon/fri', 'sat/sun', 'fri/sun', 'custom']),
-  daysOptions: z.object({
+  days: z.object({
     monday: z.boolean(),
     tuesday: z.boolean(),
     wednesday: z.boolean(),
@@ -83,9 +83,9 @@ const CreateEventForm = () => {
     defaultValues: {
       name: '',
       isPublic: 'yes',
-      once: 'yes',
+      isUniqueDay: 'yes',
       eventPeriod: 'daily',
-      daysOptions: {
+      days: {
         monday: false,
         tuesday: false,
         wednesday: false,
@@ -159,7 +159,7 @@ const CreateEventForm = () => {
           </FormLabel>
           <Controller
             control={control}
-            name="once"
+            name="isUniqueDay"
             defaultValue="yes"
             render={({ field }) => (
               <RadioGroup
@@ -182,7 +182,7 @@ const CreateEventForm = () => {
           />
         </FormControl>
       </Box>
-      {watch('once') === 'no' ? (
+      {watch('isUniqueDay') === 'no' ? (
         <Box mb={2}>
           <FormControl>
             <Controller
@@ -227,12 +227,12 @@ const CreateEventForm = () => {
       ) : (
         ''
       )}
-      {watch('eventPeriod') === 'custom' && watch('once') === 'no' && (
+      {watch('eventPeriod') === 'custom' && watch('isUniqueDay') === 'no' && (
         <Box mb={2}>
           <FormControl>
             <Controller
               control={control}
-              name="daysOptions"
+              name="days"
               render={({ field }) => (
                 <FormGroup>
                   {Object.entries(field.value).map(([key, value]) => (
