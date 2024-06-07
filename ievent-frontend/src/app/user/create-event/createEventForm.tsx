@@ -31,8 +31,7 @@ const yesterdayDate = `${yyyy}-${mm}-${dd}`
 const createEventFormSchema = z.object({
   name: z.string().nonempty('Campo obrigatório'),
   isPublic: z.enum(['yes', 'no']),
-  isUniqueDay: z.enum(['yes', 'no']),
-  eventPeriod: z.enum(['daily', 'mon/fri', 'sat/sun', 'fri/sun', 'custom']),
+  once: z.enum(['yes', 'no']),
   days: z.object({
     monday: z.boolean(),
     tuesday: z.boolean(),
@@ -83,8 +82,7 @@ const CreateEventForm = () => {
     defaultValues: {
       name: '',
       isPublic: 'yes',
-      isUniqueDay: 'yes',
-      eventPeriod: 'daily',
+      once: 'yes',
       days: {
         monday: false,
         tuesday: false,
@@ -155,11 +153,11 @@ const CreateEventForm = () => {
       <Box mb={2}>
         <FormControl>
           <FormLabel id="demo-radio-buttons-group-label">
-            O seu evento acontecerá em dia único?
+            O seu evento acontecerá apenas uma vez?
           </FormLabel>
           <Controller
             control={control}
-            name="isUniqueDay"
+            name="once"
             defaultValue="yes"
             render={({ field }) => (
               <RadioGroup
@@ -182,52 +180,7 @@ const CreateEventForm = () => {
           />
         </FormControl>
       </Box>
-      {watch('isUniqueDay') === 'no' ? (
-        <Box mb={2}>
-          <FormControl>
-            <Controller
-              control={control}
-              name="eventPeriod"
-              defaultValue="daily"
-              render={({ field }) => (
-                <RadioGroup
-                  {...field}
-                  aria-labelledby="demo-radio-buttons-group-label"
-                >
-                  <FormControlLabel
-                    value={'daily'}
-                    control={<Radio />}
-                    label="Diariamente"
-                  />
-                  <FormControlLabel
-                    value={'mon/fri'}
-                    control={<Radio />}
-                    label="Seg a Sex"
-                  />
-                  <FormControlLabel
-                    value={'fri/sun'}
-                    control={<Radio />}
-                    label="Sex a Dom"
-                  />
-                  <FormControlLabel
-                    value={'sat/sun'}
-                    control={<Radio />}
-                    label="Sab e Dom"
-                  />
-                  <FormControlLabel
-                    value={'custom'}
-                    control={<Radio />}
-                    label="Personalizado"
-                  />
-                </RadioGroup>
-              )}
-            />
-          </FormControl>
-        </Box>
-      ) : (
-        ''
-      )}
-      {watch('eventPeriod') === 'custom' && watch('isUniqueDay') === 'no' && (
+      {watch('once') === 'no' && (
         <Box mb={2}>
           <FormControl>
             <Controller
