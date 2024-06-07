@@ -1,6 +1,5 @@
 'use client'
 import * as React from 'react'
-import { IMaskInput } from 'react-imask'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
@@ -42,17 +41,30 @@ const createEventFormSchema = z.object({
     friday: z.boolean(),
     saturday: z.boolean(),
   }),
-  date: z.coerce
+  startDate: z.coerce
     .date()
     .min(new Date(yesterdayDate), { message: 'Data inválida' }),
-  time: z.string().refine(
+  endDate: z.coerce
+    .date()
+    .min(new Date(yesterdayDate), { message: 'Data inválida' }),
+  startTime: z.string().refine(
     (value) => {
       const [hours, minutes] = value.split(':').map(Number)
       return hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59
     },
     {
       message: 'Hora inválida',
-      path: ['time'],
+      path: ['startTime'],
+    },
+  ),
+  endTime: z.string().refine(
+    (value) => {
+      const [hours, minutes] = value.split(':').map(Number)
+      return hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59
+    },
+    {
+      message: 'Hora inválida',
+      path: ['endTime'],
     },
   ),
 })
@@ -66,7 +78,6 @@ const CreateEventForm = () => {
     watch,
     handleSubmit,
     formState: { errors },
-    setValue,
   } = useForm<createEventFormData>({
     resolver: zodResolver(createEventFormSchema),
     defaultValues: {
@@ -171,22 +182,7 @@ const CreateEventForm = () => {
           />
         </FormControl>
       </Box>
-      {watch('once') === 'yes' ? (
-        <Box mb={3}>
-          <InputLabel htmlFor="date">Data</InputLabel>
-          <TextField
-            {...register('date')}
-            fullWidth
-            id="date"
-            type="date"
-            name="date"
-            error={Boolean(errors.date)}
-          />
-          {errors.date && (
-            <FormHelperText error>{errors.date.message}</FormHelperText>
-          )}
-        </Box>
-      ) : (
+      {watch('once') === 'no' ? (
         <Box mb={2}>
           <FormControl>
             <Controller
@@ -228,6 +224,8 @@ const CreateEventForm = () => {
             />
           </FormControl>
         </Box>
+      ) : (
+        ''
       )}
       {watch('eventPeriod') === 'custom' && watch('once') === 'no' && (
         <Box mb={2}>
@@ -262,13 +260,51 @@ const CreateEventForm = () => {
         </Box>
       )}
       <Box mb={3}>
-        <InputLabel htmlFor="time">Hora</InputLabel>
+        <InputLabel htmlFor="startDate">Data de Início</InputLabel>
         <TextField
-          {...register('time')}
+          {...register('startDate')}
           fullWidth
-          id="time"
+          id="startDate"
+          type="date"
+          name="startDate"
+          error={Boolean(errors.startDate)}
+        />
+        {errors.startDate && (
+          <FormHelperText error>{errors.startDate.message}</FormHelperText>
+        )}
+      </Box>
+      <Box mb={3}>
+        <InputLabel htmlFor="endDate">Data de Fim</InputLabel>
+        <TextField
+          {...register('endDate')}
+          fullWidth
+          id="endDate"
+          type="date"
+          name="endDate"
+          error={Boolean(errors.endDate)}
+        />
+        {errors.endDate && (
+          <FormHelperText error>{errors.endDate.message}</FormHelperText>
+        )}
+      </Box>
+      <Box mb={3}>
+        <InputLabel htmlFor="startTime">Horário de Início</InputLabel>
+        <TextField
+          {...register('startTime')}
+          fullWidth
+          id="startTime"
           type="time"
-          name="time"
+          name="startTime"
+        />
+      </Box>
+      <Box mb={3}>
+        <InputLabel htmlFor="endTime">Horário de Fim</InputLabel>
+        <TextField
+          {...register('endTime')}
+          fullWidth
+          id="endTime"
+          type="time"
+          name="endTime"
         />
       </Box>
       <Box>
