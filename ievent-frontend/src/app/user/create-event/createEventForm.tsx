@@ -1,6 +1,5 @@
 'use client'
 import * as React from 'react'
-import { IMaskInput } from 'react-imask'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
@@ -42,27 +41,30 @@ const createEventFormSchema = z.object({
     friday: z.boolean(),
     saturday: z.boolean(),
   }),
-  date: z.coerce
+  startDate: z.coerce
     .date()
     .min(new Date(yesterdayDate), { message: 'Data inválida' }),
-  start_time: z.string().refine(
+  endDate: z.coerce
+    .date()
+    .min(new Date(yesterdayDate), { message: 'Data inválida' }),
+  startTime: z.string().refine(
     (value) => {
       const [hours, minutes] = value.split(':').map(Number)
       return hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59
     },
     {
       message: 'Hora inválida',
-      path: ['start_time'],
+      path: ['startTime'],
     },
   ),
-  end_time: z.string().refine(
+  endTime: z.string().refine(
     (value) => {
       const [hours, minutes] = value.split(':').map(Number)
       return hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59
     },
     {
       message: 'Hora inválida',
-      path: ['end_time'],
+      path: ['endTime'],
     },
   ),
 })
@@ -76,7 +78,6 @@ const CreateEventForm = () => {
     watch,
     handleSubmit,
     formState: { errors },
-    setValue,
   } = useForm<createEventFormData>({
     resolver: zodResolver(createEventFormSchema),
     defaultValues: {
@@ -259,37 +260,51 @@ const CreateEventForm = () => {
         </Box>
       )}
       <Box mb={3}>
-        <InputLabel htmlFor="date">Data</InputLabel>
+        <InputLabel htmlFor="startDate">Data de Início</InputLabel>
         <TextField
-          {...register('date')}
+          {...register('startDate')}
           fullWidth
-          id="date"
+          id="startDate"
           type="date"
-          name="date"
-          error={Boolean(errors.date)}
+          name="startDate"
+          error={Boolean(errors.startDate)}
         />
-        {errors.date && (
-          <FormHelperText error>{errors.date.message}</FormHelperText>
+        {errors.startDate && (
+          <FormHelperText error>{errors.startDate.message}</FormHelperText>
         )}
       </Box>
       <Box mb={3}>
-        <InputLabel htmlFor="start_time">Horário de Início</InputLabel>
+        <InputLabel htmlFor="endDate">Data de Fim</InputLabel>
         <TextField
-          {...register('start_time')}
+          {...register('endDate')}
           fullWidth
-          id="start_time"
+          id="endDate"
+          type="date"
+          name="endDate"
+          error={Boolean(errors.endDate)}
+        />
+        {errors.endDate && (
+          <FormHelperText error>{errors.endDate.message}</FormHelperText>
+        )}
+      </Box>
+      <Box mb={3}>
+        <InputLabel htmlFor="startTime">Horário de Início</InputLabel>
+        <TextField
+          {...register('startTime')}
+          fullWidth
+          id="startTime"
           type="time"
-          name="start_time"
+          name="startTime"
         />
       </Box>
       <Box mb={3}>
-        <InputLabel htmlFor="end_time">Horário de Fim</InputLabel>
+        <InputLabel htmlFor="endTime">Horário de Fim</InputLabel>
         <TextField
-          {...register('end_time')}
+          {...register('endTime')}
           fullWidth
-          id="end_time"
+          id="endTime"
           type="time"
-          name="end_time"
+          name="endTime"
         />
       </Box>
       <Box>
