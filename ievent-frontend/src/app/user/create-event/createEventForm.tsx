@@ -30,7 +30,7 @@ const yesterdayDate = `${yyyy}-${mm}-${dd}`
 
 const createEventFormSchema = z.object({
   name: z.string().nonempty('Campo obrigatório'),
-  publicEvent: z.enum(['yes', 'no']),
+  isPublic: z.enum(['yes', 'no']),
   once: z.enum(['yes', 'no']),
   eventPeriod: z.enum(['daily', 'mon/fri', 'sat/sun', 'fri/sun', 'custom']),
   daysOptions: z.object({
@@ -82,7 +82,7 @@ const CreateEventForm = () => {
     resolver: zodResolver(createEventFormSchema),
     defaultValues: {
       name: '',
-      publicEvent: 'yes',
+      isPublic: 'yes',
       once: 'yes',
       eventPeriod: 'daily',
       daysOptions: {
@@ -129,7 +129,7 @@ const CreateEventForm = () => {
           </FormLabel>
           <Controller
             control={control}
-            name="publicEvent"
+            name="isPublic"
             defaultValue="yes"
             render={({ field }) => (
               <RadioGroup
