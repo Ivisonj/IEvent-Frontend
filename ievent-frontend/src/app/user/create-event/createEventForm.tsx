@@ -20,6 +20,7 @@ import {
 
 import IButton from '@/components/Ibutton'
 import { TranslateLabel } from '@/utils/translateLabel'
+import eventDays from '@/utils/eventDays'
 
 const date = new Date()
 date.setDate(date.getDate() - 1)
@@ -33,6 +34,7 @@ const createEventFormSchema = z.object({
   isPublic: z.enum(['yes', 'no']),
   once: z.enum(['yes', 'no']),
   days: z.object({
+    sunday: z.boolean(),
     monday: z.boolean(),
     tuesday: z.boolean(),
     wednesday: z.boolean(),
@@ -84,6 +86,7 @@ const CreateEventForm = () => {
       isPublic: 'yes',
       once: 'yes',
       days: {
+        sunday: false,
         monday: false,
         tuesday: false,
         wednesday: false,
@@ -97,6 +100,7 @@ const CreateEventForm = () => {
 
   const sendFormData = (data: createEventFormData) => {
     console.log(data)
+    console.log(eventDays(data.days))
   }
 
   return (
