@@ -45,14 +45,24 @@ const createEventFormSchema = z.object({
   date: z.coerce
     .date()
     .min(new Date(yesterdayDate), { message: 'Data inválida' }),
-  time: z.string().refine(
+  start_time: z.string().refine(
     (value) => {
       const [hours, minutes] = value.split(':').map(Number)
       return hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59
     },
     {
       message: 'Hora inválida',
-      path: ['time'],
+      path: ['start_time'],
+    },
+  ),
+  end_time: z.string().refine(
+    (value) => {
+      const [hours, minutes] = value.split(':').map(Number)
+      return hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59
+    },
+    {
+      message: 'Hora inválida',
+      path: ['end_time'],
     },
   ),
 })
@@ -171,22 +181,7 @@ const CreateEventForm = () => {
           />
         </FormControl>
       </Box>
-      {watch('once') === 'yes' ? (
-        <Box mb={3}>
-          <InputLabel htmlFor="date">Data</InputLabel>
-          <TextField
-            {...register('date')}
-            fullWidth
-            id="date"
-            type="date"
-            name="date"
-            error={Boolean(errors.date)}
-          />
-          {errors.date && (
-            <FormHelperText error>{errors.date.message}</FormHelperText>
-          )}
-        </Box>
-      ) : (
+      {watch('once') === 'no' ? (
         <Box mb={2}>
           <FormControl>
             <Controller
@@ -228,6 +223,8 @@ const CreateEventForm = () => {
             />
           </FormControl>
         </Box>
+      ) : (
+        ''
       )}
       {watch('eventPeriod') === 'custom' && watch('once') === 'no' && (
         <Box mb={2}>
@@ -262,13 +259,37 @@ const CreateEventForm = () => {
         </Box>
       )}
       <Box mb={3}>
-        <InputLabel htmlFor="time">Hora</InputLabel>
+        <InputLabel htmlFor="date">Data</InputLabel>
         <TextField
-          {...register('time')}
+          {...register('date')}
           fullWidth
-          id="time"
+          id="date"
+          type="date"
+          name="date"
+          error={Boolean(errors.date)}
+        />
+        {errors.date && (
+          <FormHelperText error>{errors.date.message}</FormHelperText>
+        )}
+      </Box>
+      <Box mb={3}>
+        <InputLabel htmlFor="start_time">Horário de Início</InputLabel>
+        <TextField
+          {...register('start_time')}
+          fullWidth
+          id="start_time"
           type="time"
-          name="time"
+          name="start_time"
+        />
+      </Box>
+      <Box mb={3}>
+        <InputLabel htmlFor="end_time">Horário de Fim</InputLabel>
+        <TextField
+          {...register('end_time')}
+          fullWidth
+          id="end_time"
+          type="time"
+          name="end_time"
         />
       </Box>
       <Box>
